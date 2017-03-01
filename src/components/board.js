@@ -10,8 +10,6 @@ export default class Board extends React.Component {
         this.state = {
             lists: []
         };
-
-        this.addList = this.addList.bind(this);
     }
 
     addList(title) {
@@ -30,7 +28,7 @@ export default class Board extends React.Component {
                 <h2>{this.props.title}</h2>
                 <div className="lists">
                     {lists}
-                    <AddForm type="list" onAdd={this.addList} />
+                    <AddForm type="list" onAdd={title => this.addList(title)} />
                 </div>
             </div>
         );

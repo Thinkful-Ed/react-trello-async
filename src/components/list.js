@@ -9,8 +9,6 @@ export default class List extends React.Component {
         this.state = {
             cards: []
         }
-
-        this.addCard = this.addCard.bind(this);
     }
 
     addCard(text) {
@@ -29,7 +27,7 @@ export default class List extends React.Component {
             <div className="list">
                 <h3>{this.props.title}</h3>
                 {cards}
-                <AddForm type="card" onAdd={this.addCard} />
+                <AddForm type="card" onAdd={text => this.addCard(text)} />
             </div>
         );
     }
