@@ -3,6 +3,8 @@ import React from 'react';
 import Card from './card';
 import AddForm from './add-form';
 
+import './list.css';
+
 export default class List extends React.Component {
     constructor(props) {
         super(props);
