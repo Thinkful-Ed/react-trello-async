@@ -6,11 +6,16 @@
     "react-scripts": "0.8.5"
   },
   "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.15.3",
+    "npm-run-all": "^4.0.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "run-p start:server start:client",
+    "start:server": "node server.js",
+    "start:client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

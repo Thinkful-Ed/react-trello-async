@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {API_BASE_URL} from '../config';
 import List from './list';
 import AddForm from './add-form';
 
@@ -10,28 +11,85 @@ export default class Board extends React.Component {
         super(props);
 
         this.state = {
-            lists: []
+            lists: [],
+            error: null,
+            loading: false
         };
+
+        this.loadBoard();
+    }
+
+    loadBoard() {
+        this.setState({
+            error: null,
+            loading: true
+        });
+        fetch(`${API_BASE_URL}/board`)
+            .then(res => {
+                if (!res.ok) {
+                    return Promise.reject(res.statusText);
+                }
+                return res.json();
+            })
+            .then(board => this.setState(board))
+            .catch(err =>
+                this.setState({
+                    error: 'Could not load board',
+                    loading: false
+                })
+            );
     }
 
     addList(title) {
         this.setState({
-            lists: [...this.state.lists, {title}]
+            lists: [...this.state.lists, {title, cards: []}]
+        });
+    }
+
+    addCard(text, listIndex) {
+        this.setState({
+            lists: this.state.lists.map((list, index) => {
+                if (index !== listIndex) {
+                    return list;
+                }
+                return Object.assign({}, list, {
+                    cards: [...list.cards, {text}]
+                });
+            })
         });
     }
 
     render() {
-        const lists = this.state.lists.map((list, index) =>
-            <List key={index} {...list} />
-        );
-
-        return (
-            <div className="board">
-                <h2>{this.props.title}</h2>
+        let body;
+        if (this.state.error) {
+            body = (
+                <div className="message message-error">{this.state.error}</div>
+            );
+        } else if (this.state.loading) {
+            body = (
+                <div className="message message-default">Loading board...</div>
+            );
+        } else {
+            const lists = this.state.lists.map((list, index) => (
+                <List
+                    key={index}
+                    index={index}
+                    {...list}
+                    addCard={(text, index) => this.addCard(text, index)}
+                />
+            ));
+            body = (
                 <div className="lists">
                     {lists}
                     <AddForm type="list" onAdd={title => this.addList(title)} />
                 </div>
+            );
+        }
+
+        return (
+            <div className="board">
+                <h2>{this.props.title}</h2>
+                {body}
             </div>
         );
     }
@@ -40,4 +98,3 @@ export default class Board extends React.Component {
 Board.defaultProps = {
     title: 'Board'
 };
-

@@ -16,3 +16,16 @@ input {
     display: block;
 }
 
+.message {
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.message-default {
+    background-color: #E0E0E0;
+}
+
+.message-error {
+    background-color: #EB5A46;
+}
+
