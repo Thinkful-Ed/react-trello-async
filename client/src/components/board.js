@@ -13,9 +13,11 @@ export default class Board extends React.Component {
         this.state = {
             lists: [],
             error: null,
-            loading: false
+            loading: true
         };
+    }
 
+    componentDidMount() {
         this.loadBoard();
     }
 
@@ -31,7 +33,12 @@ export default class Board extends React.Component {
                 }
                 return res.json();
             })
-            .then(board => this.setState(board))
+            .then(board =>
+                this.setState({
+                    lists: board.lists,
+                    loading: false
+                })
+            )
             .catch(err =>
                 this.setState({
                     error: 'Could not load board',
