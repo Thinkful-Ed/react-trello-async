@@ -26,7 +26,7 @@ export default class Board extends React.Component {
             error: null,
             loading: true
         });
-        fetch(`${API_BASE_URL}/board`)
+        return fetch(`${API_BASE_URL}/board`)
             .then(res => {
                 if (!res.ok) {
                     return Promise.reject(res.statusText);
