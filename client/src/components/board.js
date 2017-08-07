@@ -13,7 +13,7 @@ export default class Board extends React.Component {
         this.state = {
             lists: [],
             error: null,
-            loading: true
+            loading: false
         };
     }
 
