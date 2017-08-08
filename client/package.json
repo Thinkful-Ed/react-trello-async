@@ -11,9 +11,7 @@
     "react-dom": "^15.4.2"
   },
   "scripts": {
-    "start": "run-p start:server start:client",
-    "start:server": "node ../server/server.js",
-    "start:client": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
