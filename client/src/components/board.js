@@ -78,18 +78,24 @@ export default class Board extends React.Component {
             );
         } else {
             const lists = this.state.lists.map((list, index) => (
-                <List
-                    key={index}
-                    index={index}
-                    {...list}
-                    addCard={(text, index) => this.addCard(text, index)}
-                />
+                <li className="list-wrapper" key={index}>
+                    <List
+                        index={index}
+                        {...list}
+                        addCard={(text, index) => this.addCard(text, index)}
+                    />
+                </li>
             ));
             body = (
-                <div className="lists">
+                <ul className="lists">
                     {lists}
-                    <AddForm type="list" onAdd={title => this.addList(title)} />
-                </div>
+                    <li className="add-list-wrapper">
+                        <AddForm
+                            type="card"
+                            onAdd={text => this.addList(text)}
+                        />
+                    </li>
+                </ul>
             );
         }
 
